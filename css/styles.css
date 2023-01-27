@@ -1,0 +1,70 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #E8F3FC;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.hero{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+article{
+    margin:30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.jobs, .deductions, .balance{
+    background-color: white;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+}
+
+.half{
+    width:49.5%;
+}
+
+.jd > *{
+    width: 100%;
+}
+
+.jd{
+    display: flex;
+    flex-wrap:wrap;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    /* height: fit-content; */
+    width: 34%
+}
+
+.balance{
+    width: 65%;
+}
+
+.jobs{
+    margin: 0 0 20px 0;
+}
+
+#jobInput{
+    width: 100%;
+    border: none;
+    padding: 2%;
+    font-size: 1.5rem;
+}
+
+.deductions{
+    padding: 2% 2.5% 2% 2.5%;
+}
+
+.gross h3{
+    margin:0;
+}
