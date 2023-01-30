@@ -76,6 +76,27 @@ article{
     outline:none;
 }
 
+.autocomplete-list{
+    position: absolute;
+    top: 375px;
+    left: 30px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    width: 38.4%;
+    max-height: 200px;
+    overflow-y: auto;
+    /* border: 1px solid rgba(0,0,0,.1); */
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+}
+
+.autocomplete-list li{
+    padding: 15px;
+    width: calc(100%-30px);
+    cursor: pointer;
+}
+
 .deductions{
     padding: 2% 2.5% 2% 2.5%;
 }
