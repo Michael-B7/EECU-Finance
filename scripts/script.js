@@ -22,28 +22,101 @@ document.addEventListener("DOMContentLoaded", function() {
         return data.filter((x) => x.toLowerCase().includes(searchText.toLowerCase()));
     }
 
+    function deduct(data){
+        let salary = jobs[data].toFixed(2);
+
+        let annual = document.querySelector(".annual h3:nth-child(3)");
+        annual.innerText = salary;
+
+        let monthly = document.querySelector(".monthly h3:nth-child(3)");
+        let monthGross = salary/12;
+        monthGross = monthGross.toFixed(2);
+        monthly.innerText = monthGross;
+
+        let fed = document.querySelector(".fed td:last-child");
+        let fedT = (monthGross * .12).toFixed(2);
+        fed.innerText = fedT;
+
+        let state = document.querySelector(".state td:last-child");
+        let stateT = (monthGross * .07).toFixed(2);
+        state.innerText = stateT;
+
+        let ss = document.querySelector(".ss td:last-child");
+        let ssT = (monthGross * .062).toFixed(2);
+        ss.innerText = ssT;
+
+        let med = document.querySelector(".med td:last-child");
+        let medT = (monthGross * .0145).toFixed(2);
+        med.innerText = medT;
+
+        let sd = document.querySelector(".sd td:last-child");
+        let sdT = (monthGross * .01).toFixed(2);
+        sd.innerText = sdT;
+
+        let ri = document.querySelector(".ri td:last-child");
+        let riT = (monthGross * .05).toFixed(2);
+        ri.innerText = riT
+
+        let miT = 180.00;
+
+        let td = document.querySelector(".td td:last-child");
+        let tdT = (+fedT + +stateT + +ssT + +medT + +sdT + +riT + +miT).toFixed(2);
+        td.innerText = tdT
+
+        let house = document.querySelector(".house p:last-child");
+        let housePay = (monthGross * .33).toFixed(2);
+        house.innerText = `$ ${housePay}`;
+    }
+
+    function unloadDeduct(){
+        let deductItems = document.querySelectorAll(".deduct tr td:last-child");
+        deductItems.forEach((item) => {
+            if(item.innerText != 180.00){
+                item.innerText = "";
+            }
+        });
+        document.querySelector(".house p:last-child").innerText = "";
+    };
+
     jobInputElement.addEventListener("input", function(){
-        if(jobInputElement.value != ""){
-            const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
-            loadData(filteredData, jobListElement);
-        }else{
-            jobListElement.innerHTML = '';
-        }
+        unloadDeduct();
+        const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
+        loadData(filteredData, jobListElement);
     });
 
     jobInputElement.addEventListener("click", function(){
+        jobInputElement.value = '';
+        unloadDeduct();
         const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
         loadData(filteredData, jobListElement);
-
-        
     });
+
+    jobInputElement.addEventListener("keydown", function(event){
+        if(event.key == "Enter"){
+            let match = false;
+            for(var i=0; i<Object.keys(jobs).length; i++){
+                if(Object.keys(jobs)[i].toLowerCase() == jobInputElement.value.toLowerCase()){
+                    match = true;
+                    let job = event.target.innerText.replace(/(\b[a-z](?!\s))/g, x => x.toUpperCase());
+                    jobInputElement.value = job;
+                    jobListElement.innerHTML = '';
+                    deduct(job);
+                    break;
+                };
+            };
+            if(!match){
+                alert("Not a valid job.");
+            };
+        };
+    })
 
     document.addEventListener("click", function(event){
         if(event.target.id == "job-item"){
             jobInputElement.focus()
-            let job;
-            job = event.target.innerText;
-            console.log(job)
+            let job = event.target.innerText;
+            jobInputElement.value = job;
+            jobListElement.innerHTML = '';
+            deduct(job);
         }else if(event.target.id == "jobInput"){
 
         }else{

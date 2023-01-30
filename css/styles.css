@@ -76,19 +76,24 @@ article{
     outline:none;
 }
 
+.autocomplete{
+    position:relative;
+}
+
 .autocomplete-list{
     position: absolute;
-    top: 375px;
-    left: 30px;
+    top: 55px;
+    left: 0;
     list-style-type: none;
     margin: 0;
     padding: 0;
     background-color: white;
-    width: 38.4%;
+    width: 100%;
     max-height: 200px;
     overflow-y: auto;
     /* border: 1px solid rgba(0,0,0,.1); */
     box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+    z-index: 99;
 }
 
 .autocomplete-list li{

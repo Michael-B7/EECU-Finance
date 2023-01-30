@@ -20,7 +20,7 @@
             <section class="jobs">
                 <form autocomplete="off" action="" class="job">
                     <div class="autocomplete">
-                        <input id="jobInput" type="text" name="job" placeholder="Job">
+                        <input id="jobInput" type="text" name="job" placeholder="Job" spellcheck="false">
                         <ul class="autocomplete-list" id="job-list">
                         </ul>
                     </div>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="tax">
                     <table class="deduct">
-                        <tr>
+                        <tr class="fed">
                             <td>Federal Taxes:</td>
                             <td>12%</td>
                             <td>x</td>
@@ -51,7 +51,7 @@
                             <td>$</td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr class="state">
                             <td>State Taxes:</td>
                             <td>7%</td>
                             <td>x</td>
@@ -60,7 +60,7 @@
                             <td>$</td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr class="ss">
                             <td>Social Security:</td>
                             <td>6.2%</td>
                             <td>x</td>
@@ -69,7 +69,7 @@
                             <td>$</td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr class="med">
                             <td>Medicare:</td>
                             <td>1.45%</td>
                             <td>x</td>
@@ -78,7 +78,7 @@
                             <td>$</td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr class="sd">
                             <td>State Disability:</td>
                             <td>1%</td>
                             <td>x</td>
@@ -87,7 +87,7 @@
                             <td>$</td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr class="ri">
                             <td>Retirement Investment:</td>
                             <td>5%</td>
                             <td>x</td>
@@ -96,16 +96,16 @@
                             <td>$</td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr class="mi">
                             <td>Medical Insurance:</td>
                             <td></td>
                             <td></td>
-                            <td>$180</td>
+                            <td>$180.00</td>
                             <td>=</td>
                             <td>$</td>
-                            <td>180</td>
+                            <td>180.00</td>
                         </tr>
-                        <tr>
+                        <tr class="td">
                             <td>Total Deductions:</td>
                             <td></td>
                             <td></td>
@@ -128,14 +128,6 @@
 
         <section class="balance">
             <table class="bal">
-                <colgroup>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
                 <form action="" class="sheet"></form>
                     <tr>
                         <th>NUMBER OR CODE</th>
@@ -147,21 +139,21 @@
                     </tr>
                     <tr>
                         <td>
-                            <div><input type="text" size="1"></div>
+                            <div><input type="text" size="1" spellcheck="false"></div>
                         </td>
                         <td>
-                            <div><input type="text" size="1"></div>
+                            <div><input type="text" size="1" spellcheck="false"></div>
                         </td>
                         <td>
-                            <div><input type="text" size="1"></div>
+                            <div><input type="text" size="1" spellcheck="false"></div>
                         </td>
                         <td>
-                            <div><input type="text" size="1"></div>
+                            <div><input type="text" size="1" spellcheck="false"></div>
                         </td>
                         <td>
-                            <div><input type="text" size="1"></div>
+                            <div><input type="text" size="1" spellcheck="false"></div>
                         </td>
-                        <td><div><input type="text" size="1"></div></td>
+                        <td><div></div></td>
                     </tr>
                 </form>
             </table>
