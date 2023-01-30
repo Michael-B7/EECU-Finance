@@ -91,24 +91,30 @@ document.addEventListener("DOMContentLoaded", function() {
         loadData(filteredData, jobListElement);
     });
 
-    jobInputElement.addEventListener("keydown", function(event){
+    jobInputElement.addEventListener("keypress", function(event){
         if(event.key == "Enter"){
             let match = false;
             for(var i=0; i<Object.keys(jobs).length; i++){
                 if(Object.keys(jobs)[i].toLowerCase() == jobInputElement.value.toLowerCase()){
-                    match = true;
-                    let job = event.target.innerText.replace(/(\b[a-z](?!\s))/g, x => x.toUpperCase());
-                    jobInputElement.value = job;
-                    jobListElement.innerHTML = '';
-                    deduct(job);
-                    break;
+                    
+                    try {
+                        match = true;
+                        let job = event.target.innerText;
+                        jobInputElement.value = job;
+                        jobListElement.innerHTML = '';
+                        deduct(job);
+                        break;
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    
                 };
             };
             if(!match){
                 alert("Not a valid job.");
             };
         };
-    })
+    });
 
     document.addEventListener("click", function(event){
         if(event.target.id == "job-item"){
