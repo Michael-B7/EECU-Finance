@@ -26,30 +26,28 @@ document.addEventListener("DOMContentLoaded", function() {
         if(jobInputElement.value != ""){
             const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
             loadData(filteredData, jobListElement);
+        }else{
+            jobListElement.innerHTML = '';
         }
     });
 
     jobInputElement.addEventListener("click", function(){
-        if(jobInputElement.value != ""){
-            const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
-            loadData(filteredData, jobListElement);
-        }
-    });
+        const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
+        loadData(filteredData, jobListElement);
 
-    jobInputElement.addEventListener("blur", function(){
-        document.addEventListener("click", function(event){
-            if(event.target.id != "job-item"){
-                jobListElement.innerHTML = '';
-            }else{
-                jobInputElement.focus()
-            }
-        });
+        
     });
 
     document.addEventListener("click", function(event){
-        let job;
         if(event.target.id == "job-item"){
+            jobInputElement.focus()
+            let job;
             job = event.target.innerText;
+            console.log(job)
+        }else if(event.target.id == "jobInput"){
+
+        }else{
+            jobListElement.innerHTML = '';
         }
     });
 });
