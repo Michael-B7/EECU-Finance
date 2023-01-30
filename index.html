@@ -11,6 +11,7 @@
 <body>
     <section class="hero">
         <img src="images/eecu-logo.png" alt="">
+        <h1>Pay Deductions & Balance Calculator</h1>
     </section>
 
     <article>
@@ -18,7 +19,7 @@
             <section class="jobs">
                 <form autocomplete="off" action="/action_page.php" class="job">
                     <div class="autocomplete">
-                    <input id="jobInput" type="text" name="job" placeholder="Job">
+                        <input id="jobInput" type="text" name="job" placeholder="Job">
                     </div>
                     <!-- <input type="submit"> -->
                 </form>
@@ -26,12 +27,16 @@
 
             <section class="deductions">
                 <div class="gross">
-                    <h3>Gross Annual Income:</h3>
-                    <h3>$</h3>
-                    <h3></h3>
-                    <h3>Gross Monthly Income</h3>
-                    <h3>$</h3>
-                    <h3></h3>
+                    <div class="annual">
+                        <h3>Gross Annual Income:</h3>
+                        <h3>$</h3>
+                        <h3></h3>
+                    </div>
+                    <div class="monthly">
+                        <h3>Gross Monthly Income:</h3>
+                        <h3>$</h3>
+                        <h3></h3>
+                    </div>
                 </div>
                 <div class="tax">
                     <table class="deduct">
@@ -93,9 +98,10 @@
                             <td>Medical Insurance:</td>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
                             <td>$180</td>
+                            <td>=</td>
+                            <td>$</td>
+                            <td>180</td>
                         </tr>
                         <tr>
                             <td>Total Deductions:</td>
@@ -113,7 +119,6 @@
                     <h3>Monthly House Payment</h3>
                     <p>Gross Monthly Income x 33% (.33) = <br>Maximum Monthly House Payment</p>
                     <p>$</p>
-                    <p></p>
                 </div>
             </section>
         </div>
@@ -121,24 +126,40 @@
 
         <section class="balance">
             <table class="bal">
-                <form action="" class="sheet">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <form action="" class="sheet"></form>
                     <tr>
                         <th>NUMBER OR CODE</th>
                         <th>DATE</th>
                         <th>TRANSACTION DESCRIPTION</th>
                         <th>PAYMENT, FEE, WITHDRAWL (-)</th>
-                        <th></th>
                         <th>DEPOSIT CREDIT (+)</th>
                         <th>BALANCE ($)</th>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            <div><input type="text" size="1"></div>
+                        </td>
+                        <td>
+                            <div><input type="text" size="1"></div>
+                        </td>
+                        <td>
+                            <div><input type="text" size="1"></div>
+                        </td>
+                        <td>
+                            <div><input type="text" size="1"></div>
+                        </td>
+                        <td>
+                            <div><input type="text" size="1"></div>
+                        </td>
+                        <td><div><input type="text" size="1"></div></td>
                     </tr>
                 </form>
             </table>

@@ -12,9 +12,18 @@ body{
 .hero{
     background-color: white;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     padding: 5%;
     border-bottom: 1px solid rgba(0,0,0,.1);
+    align-items: center;
+    height: 40vh
+}
+
+.hero h1{
+    width: 100%;
+    text-align: center;
+    color: rgb(0,108,168)
 }
 
 article{
@@ -35,6 +44,7 @@ article{
 
 .jd > *{
     width: 100%;
+    border: 1px solid rgba(0,0,0,.1);
 }
 
 .jd{
@@ -43,11 +53,12 @@ article{
     /* flex-direction: column; */
     justify-content: space-between;
     /* height: fit-content; */
-    width: 34%
+    width: 40%
 }
 
 .balance{
-    width: 65%;
+    width: 58.5%;
+    border: 1px solid rgba(0,0,0,.1);
 }
 
 .jobs{
@@ -58,13 +69,95 @@ article{
     width: 100%;
     border: none;
     padding: 2%;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+}
+
+#jobInput:focus{
+    outline:none;
 }
 
 .deductions{
     padding: 2% 2.5% 2% 2.5%;
 }
 
-.gross h3{
-    margin:0;
+.gross{
+    display: flex;
+    flex-wrap: wrap;
+    margin:0px 0px 10px 0px;
+}
+
+.annual, .monthly{
+    width: 100%;
+    margin: 0 0 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gross > * > *{
+    margin: 0 10px 0 0;
+}
+
+.deduct td{
+    padding: 0px 10px 10px 0px;
+}
+
+.deduct{
+    width: 100%;
+}
+
+.deduct td:nth-child(2), .deduct td:nth-child(4){
+    text-align: right;
+}
+
+.deduct td:nth-child(2){
+    padding: 0px 20px 10px 0px;
+}
+
+.deduct td:nth-child(3){
+    text-align: center;
+}
+
+.deduct td:nth-child(6){
+    padding: 0 0 10px 0;
+}
+
+.house{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.house > *{
+    width: 100%;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.bal{
+    width: 100%;
+}
+
+th{
+    font-size: .8em;
+}
+
+.bal, .bal th, .bal td{
+    border: 1px solid black;
+    padding: 5px;
+    border-collapse: collapse;
+}
+
+.bal td{
+    height: 4vh;
+    padding: 0 2px;
+}
+
+.bal input, .bal input:focus{
+    border: 0;
+    outline: none;
+    width: 100%;
+    text-align: center;
+}
+
+.bal td:nth-child(4), .bal td:nth-child(5), .bal td:nth-child(1){
+    width: 16%;
 }
