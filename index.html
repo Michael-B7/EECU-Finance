@@ -17,10 +17,11 @@
 
     <article>
         <div class="jd">
+            <p></p>
             <section class="jobs">
-                <form autocomplete="off" action="" class="job">
+                <form autocomplete="off" action="" class="job" onsubmit="return false">
                     <div class="autocomplete">
-                        <input id="jobInput" type="text" name="job" placeholder="Job" spellcheck="false" onsubmit="return false">
+                        <input id="jobInput" type="text" name="job" placeholder="Job" spellcheck="false">
                         <ul class="autocomplete-list" id="job-list">
                         </ul>
                     </div>
@@ -128,33 +129,35 @@
 
         <section class="balance">
             <table class="bal">
-                <form action="" class="sheet"></form>
-                    <tr>
-                        <th>NUMBER OR CODE</th>
-                        <th>DATE</th>
-                        <th>TRANSACTION DESCRIPTION</th>
-                        <th>PAYMENT, FEE, WITHDRAWL (-)</th>
-                        <th>DEPOSIT CREDIT (+)</th>
-                        <th>BALANCE ($)</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div><input type="text" size="1" spellcheck="false"></div>
-                        </td>
-                        <td>
-                            <div><input type="text" size="1" spellcheck="false"></div>
-                        </td>
-                        <td>
-                            <div><input type="text" size="1" spellcheck="false"></div>
-                        </td>
-                        <td>
-                            <div><input type="text" size="1" spellcheck="false"></div>
-                        </td>
-                        <td>
-                            <div><input type="text" size="1" spellcheck="false"></div>
-                        </td>
-                        <td><div></div></td>
-                    </tr>
+                <form action="">
+                    <div class="sheet">
+                        <tr>
+                            <th>NUMBER OR CODE</th>
+                            <th>DATE</th>
+                            <th>TRANSACTION DESCRIPTION</th>
+                            <th>PAYMENT, FEE, WITHDRAWL (-)</th>
+                            <th>DEPOSIT CREDIT (+)</th>
+                            <th>BALANCE ($)</th>
+                        </tr>
+                        <tr id="rowCopy">
+                            <td id="code">
+                                <div><input type="text" size="1" spellcheck="false"></div>
+                            </td>
+                            <td id="date">
+                                <div><input type="text" size="1" spellcheck="false"></div>
+                            </td>
+                            <td id="desc">
+                                <div><input type="text" size="1" spellcheck="false"></div>
+                            </td>
+                            <td id="neg">
+                                <div><input type="text" size="1" spellcheck="false"></div>
+                            </td>
+                            <td id="pos">
+                                <div><input type="text" size="1" spellcheck="false"></div>
+                            </td>
+                            <td id="amount"><div></div></td>
+                        </tr>
+                    </div>
                 </form>
             </table>
         </section>
