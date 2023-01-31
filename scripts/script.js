@@ -68,6 +68,8 @@ document.addEventListener("DOMContentLoaded", function() {
         let house = document.querySelector(".house p:last-child");
         let housePay = (monthGross * .33).toFixed(2);
         house.innerText = `$ ${housePay}`;
+
+        return tdT;
     }
 
     function unloadDeduct(){
@@ -103,18 +105,16 @@ document.addEventListener("DOMContentLoaded", function() {
             let match = false;
             for(var i=0; i<Object.keys(jobs).length; i++){
                 if(Object.keys(jobs)[i].toLowerCase() == jobInputElement.value.toLowerCase()){
-                    
-                    try {
-                        match = true;
-                        let job = Object.keys(jobs)[i];
-                        jobInputElement.value = job;
-                        jobListElement.innerHTML = '';
-                        deduct(job);
-                        break;
-                    } catch (error) {
-                        console.log(error);
-                    }
-                    
+                    match = true;
+                    let job = Object.keys(jobs)[i];
+                    jobInputElement.value = job;
+                    jobListElement.innerHTML = '';
+                    let deductions = deduct(job);
+                    payCheck(jobs[job]/12, deductions);
+                    if(document.querySelector(".bal tbody").children.length <= 2){
+                        addRows();
+                    };
+                    break;              
                 };
             };
             if(!match){
@@ -129,7 +129,11 @@ document.addEventListener("DOMContentLoaded", function() {
             let job = event.target.innerText;
             jobInputElement.value = job;
             jobListElement.innerHTML = '';
-            deduct(job);
+            let deductions = deduct(job);
+            payCheck(jobs[job]/12, deductions);
+            if(document.querySelector(".bal tbody").children.length <= 2){
+                addRows();
+            };
         }else if(event.target.id == "jobInput"){
 
         }else{
@@ -138,19 +142,58 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     //check balance
+    const rCode = document.querySelector("#code");
+    const rDate = document.querySelector("#date");
+    const rDesc = document.querySelector("#desc");
+    const rNeg = document.querySelector("#neg");
+    const rPos = document.querySelector("#pos");
+    const rAmount = document.querySelector("#amount");
+    const rArr = [rCode, rDate, rDesc, rNeg, rPos, rAmount];
+
     function addRows(){
         let table = document.querySelector(".bal tbody");
-        table.innerHTML += rowHTML.innerHTML
+        let row = table.insertRow(2);
+        for(var i=0; i<6; i++){
+            let cell = row.insertCell(i);
+            cell.innerHTML = `<input type="text" size="1" spellcheck="false"></input>`;
+        };
     }
 
-    function payCheck(pay){
+    function payCheck(pay, deduct){
+        let balance = pay - deduct;
+
         let desc = rowHTML.querySelector("#desc input");
         desc.value = "Paycheck";
 
         let amount = rowHTML.querySelector("#pos input");
-        amount.value = `$${pay}`;
+        amount.value = `$${balance}`;
 
         let bal = rowHTML.querySelector("#amount input");
-        bal.value = `$${pay}`;
+        bal.value = `$${balance}`;
     }
+
+    function deposit(bal, deposit, element){
+        let newBal = bal + deposit;
+        element.innerText = `$${newBal}`;
+    }
+
+    function withdrawl(bal, withdrawl, element){
+        let newBal = bal - withdrawl;
+        element.innerText = `$${newBal}`;
+    }
+
+    document.addEventListener("blur", function(){
+        console.log(9)
+        let match = false
+        for(var i=0; i<rArr.length; i++){
+            if(elem == rArr[i]){
+                match = true;
+                break;
+            }
+        }
+        if(match){
+            console.log(9)
+            addRows();
+        }
+    }));    
 });
