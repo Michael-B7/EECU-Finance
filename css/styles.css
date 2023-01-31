@@ -172,13 +172,15 @@ article{
 
 .bal{
     width: 100%;
+    /* border:none; */
     /* max-height:100%;  */
     /* overflow-y: scroll; */
 }
 
 .balance{
-    overflow-y:scroll;
-    max-height: 92vh;
+    overflow-y: auto;
+    max-height: 54.25vh;
+    border: none;
 }
 
 th{

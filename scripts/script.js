@@ -13,16 +13,15 @@ document.addEventListener("DOMContentLoaded", function() {
             let innerElement = "";
             data.forEach((item) => {
                 innerElement += `
-                <li id = "job-item">${item}</li>`;
+                <li id="job-item">${item}</li>`;
             });
-
             element.innerHTML = innerElement;
-        }
-    }
+        };
+    };
 
     function filterData(data, searchText){
         return data.filter((x) => x.toLowerCase().includes(searchText.toLowerCase()));
-    }
+    };
 
     function deduct(data){
         let salary = jobs[data].toFixed(2);
@@ -103,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
     jobInputElement.addEventListener("keypress", function(event){
         if(event.key == "Enter"){
             let match = false;
-            for(var i=0; i<Object.keys(jobs).length; i++){
+            for(let i=0; i<Object.keys(jobs).length; i++){
                 if(Object.keys(jobs)[i].toLowerCase() == jobInputElement.value.toLowerCase()){
                     match = true;
                     let job = Object.keys(jobs)[i];
@@ -142,20 +141,19 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     //check balance
-    const rCode = document.querySelector("#code");
-    const rDate = document.querySelector("#date");
-    const rDesc = document.querySelector("#desc");
-    const rNeg = document.querySelector("#neg");
-    const rPos = document.querySelector("#pos");
-    const rAmount = document.querySelector("#amount");
-    const rArr = [rCode, rDate, rDesc, rNeg, rPos, rAmount];
 
     function addRows(){
         let table = document.querySelector(".bal tbody");
         let row = table.insertRow(2);
-        for(var i=0; i<6; i++){
-            let cell = row.insertCell(i);
-            cell.innerHTML = `<input type="text" size="1" spellcheck="false"></input>`;
+        for(let i=0; i<6; i++){
+            if(i != 5){
+                let cell = row.insertCell(i);
+                cell.innerHTML = `<input type="text" size="1" spellcheck="false"></input>`;
+            }else{
+                let cell = row.insertCell(i);
+                cell.innerHTML = `<input readonly type="text" size="1" spellcheck="false"></input>`;
+            }
+            
         };
     }
 
@@ -166,34 +164,27 @@ document.addEventListener("DOMContentLoaded", function() {
         desc.value = "Paycheck";
 
         let amount = rowHTML.querySelector("#pos input");
-        amount.value = `$${balance}`;
+        amount.value = `${balance.toFixed(2)}`;
 
         let bal = rowHTML.querySelector("#amount input");
-        bal.value = `$${balance}`;
+        bal.value = `${balance.toFixed(2)}`;
     }
 
     function deposit(bal, deposit, element){
         let newBal = bal + deposit;
-        element.innerText = `$${newBal}`;
+        element.innerText = `${newBal.toFixed(2)}`;
     }
 
     function withdrawl(bal, withdrawl, element){
         let newBal = bal - withdrawl;
-        element.innerText = `$${newBal}`;
+        element.innerText = `${newBal.toFixed(2)}`;
     }
 
-    document.addEventListener("blur", function(){
-        console.log(9)
-        let match = false
-        for(var i=0; i<rArr.length; i++){
-            if(elem == rArr[i]){
-                match = true;
-                break;
-            }
-        }
-        if(match){
-            console.log(9)
-            addRows();
-        }
-    });    
+    const rCells = document.getElementById("#rowCopy").children;
+
+    for(let elem of rCells){
+
+    }
+
+    
 });
