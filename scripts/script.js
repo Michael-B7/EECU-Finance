@@ -144,14 +144,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function addRows(){
         let table = document.querySelector(".bal tbody");
-        let row = table.insertRow(2);
+        let tableCh = table.children;
+        let row;
+        for(let i=0; i<tableCh.length; i++){
+            if(i == tableCh.length-1){
+                row = table.insertRow(i);
+            }
+        }
         for(let i=0; i<6; i++){
             if(i != 5){
                 let cell = row.insertCell(i);
                 cell.innerHTML = `<input type="text" size="1" spellcheck="false"></input>`;
             }else{
                 let cell = row.insertCell(i);
-                cell.innerHTML = `<input readonly type="text" size="1" spellcheck="false"></input>`;
+                cell.innerHTML = `<img src="images/x-png.png">`;
             }
             
         };
@@ -180,10 +186,23 @@ document.addEventListener("DOMContentLoaded", function() {
         element.innerText = `${newBal.toFixed(2)}`;
     }
 
-    const rCells = document.getElementById("#rowCopy").children;
+    const rCells = document.getElementById("rowCopy").children;
 
     for(let elem of rCells){
-
+        elem.addEventListener("blur", function(event){
+            console.log(9)
+            let match = false
+            for(var i=0; i<rArr.length; i++){
+                if(elem == rArr[i]){
+                    match = true;
+                    break;
+                }
+            }
+            if(match){
+                console.log(9)
+                addRows();
+            }
+        })
     }
 
     

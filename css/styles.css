@@ -209,10 +209,20 @@ th{
     text-align: center;
 }
 
-.bal td:nth-child(4), .bal td:nth-child(5), .bal td:nth-child(1){
+.bal td:nth-child(3), .bal td:nth-child(4), .bal td:nth-child(1){
     width: 16%;
 }
 
 .bal input{
     font-size: 1.05em;
+}
+
+#delete{
+    display: flex;
+    justify-content: center;
+}
+
+#delete img{
+    /* width:16%; */
+    border: none
 }
