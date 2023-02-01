@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const jobListElement = document.querySelector("#job-list");
     const jobInputElement = document.querySelector("#jobInput");
     const error = document.querySelector(".jd p");
-    const rowHTML = document.querySelector("#rowCopy");
+    let firstRow = document.getElementsByClassName("bal")[0].children[1].children[1];
 
     function loadData(data, element){
         if(data){
@@ -87,7 +87,15 @@ document.addEventListener("DOMContentLoaded", function() {
             item.value = "";
         })
 
-        document.querySelector(".house p:last-child").innerText = "";
+        document.querySelector(".house p:last-child").innerText = "$";
+
+        if(table.children[1].children.length == 3){
+            delRow(table, 2);
+            let cells = table.children[1].children[1].children;
+            for(let cell of cells){
+                cell.value = ""
+            }
+        }
     };
 
     jobInputElement.addEventListener("input", function(){
@@ -128,18 +136,6 @@ document.addEventListener("DOMContentLoaded", function() {
         };
     });
 
-    document.addEventListener("mouseover", function(event){
-        if(event.target.id == "job-item"){
-            event.target.style.background = "#DDFEFB";
-        };
-    });
-
-    document.addEventListener("mouseout", function(event){
-        if(event.target.id == "job-item"){
-            event.target.style.background = "white";
-        }
-    })
-
     document.addEventListener("click", function(event){
         if(event.target.id == "job-item"){
             jobInputElement.focus();
@@ -159,6 +155,35 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     //check balance
+
+    const checkBook = document.getElementsByClassName("balance")[0];
+    const addButton = document.getElementsByClassName("add")[0];
+    const table = document.getElementsByClassName("bal")[0];
+
+    checkBook.addEventListener("mouseover", function(){
+        addButton.style = "display: block"
+    });
+
+    checkBook.addEventListener("mouseout", function(){
+        addButton.style = "display: none"
+    })
+
+    addButton.addEventListener("click", addRow);
+
+    document.addEventListener("click", function(event){
+        if(event.target.id == "delete"){
+            let tbody = event.target.parentElement.parentElement;
+            let row = event.target.parentElement;
+            console.log(tbody, row)
+
+            for(let i=0; i<tbody.length; i++){
+                if(tbody[i] == row){
+                    console.log(9);
+                    delRow(tbody.parentElement, tbody[i]);
+                }
+            }
+        }
+    })
 
     function addRow(){
         let table = document.querySelector(".bal tbody");
@@ -183,20 +208,22 @@ document.addEventListener("DOMContentLoaded", function() {
         };
     }
 
-    function deleteRow(){
-
+    function delRow(table, row){
+        console.log(9)
+        table.deleteRow(row);
     }
 
     function payCheck(pay, deduct){
         let balance = pay - deduct;
+        let firstRow = document.getElementsByClassName("bal")[0].children[1].children[1];
 
-        let desc = rowHTML.querySelector("#desc input");
+        let desc = firstRow.querySelector("td:nth-child(2) input");
         desc.value = "Paycheck";
 
-        let amount = rowHTML.querySelector("#pos input");
+        let amount = firstRow.querySelector("td:nth-child(4) input");
         amount.value = `${balance.toFixed(2)}`;
 
-        let bal = rowHTML.querySelector("#amount input");
+        let bal = firstRow.querySelector("td:nth-child(5) input");
         bal.value = `${balance.toFixed(2)}`;
     }
 
@@ -210,4 +237,6 @@ document.addEventListener("DOMContentLoaded", function() {
         element.innerText = `${newBal.toFixed(2)}`;
     }
     
+
+
 });

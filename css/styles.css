@@ -183,6 +183,12 @@ article{
     border: none;
 }
 
+.balance > div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 th{
     font-size: .8em;
     position: sticky;
@@ -224,13 +230,11 @@ th:hover{
 }
 
 #delete{
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 
 #delete img{
-    /* width:33%; */
-    border: none;
+    height: 75%;
 }
 
 #delete:hover{
@@ -243,4 +247,25 @@ th:hover{
 
 #code:hover, #desc:hover, #neg:hover, #pos:hover, #amount:hover{
     cursor: default;
+}
+
+#job-item:hover{
+    background: #bedcf9;
+}
+
+.add{
+    margin: 5px 0 0 0;
+    padding: 5px;
+    font-size: .75em;
+    border: 2px solid black;
+    background: #E8F3FC;
+    display: none;
+}
+
+.add h3{
+    margin:0;
+}
+
+.add:hover, .add h3:hover{
+    cursor: pointer;
 }
