@@ -174,10 +174,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if(event.target.id == "delete"){
             let tbody = event.target.parentElement.parentElement;
             let row = event.target.parentElement;
-            console.log(tbody, row)
+            console.log(tbody, row);
+            // console.log(tbody.children.length)
 
-            for(let i=0; i<tbody.length; i++){
-                if(tbody[i] == row){
+            for(let i=0; i<tbody.children.length; i++){
+                console.log(i)
+                if(tbody.children[i] == row){
                     console.log(9);
                     delRow(tbody.parentElement, tbody[i]);
                 }
