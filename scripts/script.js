@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return tdT;
     }
 
-    function unloadDeduct(){
+    function unloadData(){
         document.querySelector(".annual h3:last-child").innerText = "";
         document.querySelector(".monthly h3:last-child").innerText = "";
 
@@ -81,12 +81,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 item.innerText = "";
             }
         });
+
+        let balSheetItems = document.querySelectorAll("#rowCopy input");
+        balSheetItems.forEach((item) => {
+            item.value = "";
+        })
+
         document.querySelector(".house p:last-child").innerText = "";
     };
 
     jobInputElement.addEventListener("input", function(){
         error.innerText = ""
-        unloadDeduct();
+        unloadData();
         const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
         loadData(filteredData, jobListElement);
     });
@@ -94,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
     jobInputElement.addEventListener("click", function(){
         error.innerText = "";
         jobInputElement.value = '';
-        unloadDeduct();
+        unloadData();
         const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
         loadData(filteredData, jobListElement);
     });
@@ -111,27 +117,39 @@ document.addEventListener("DOMContentLoaded", function() {
                     let deductions = deduct(job);
                     payCheck(jobs[job]/12, deductions);
                     if(document.querySelector(".bal tbody").children.length <= 2){
-                        addRows();
+                        addRow();
                     };
                     break;              
                 };
             };
             if(!match){
-                error.innerText = "Not a valid job.";
+                error.innerText = "Please pick a job from the list.";
             };
         };
     });
 
+    document.addEventListener("mouseover", function(event){
+        if(event.target.id == "job-item"){
+            event.target.style.background = "#DDFEFB";
+        };
+    });
+
+    document.addEventListener("mouseout", function(event){
+        if(event.target.id == "job-item"){
+            event.target.style.background = "white";
+        }
+    })
+
     document.addEventListener("click", function(event){
         if(event.target.id == "job-item"){
-            jobInputElement.focus()
+            jobInputElement.focus();
             let job = event.target.innerText;
             jobInputElement.value = job;
             jobListElement.innerHTML = '';
             let deductions = deduct(job);
             payCheck(jobs[job]/12, deductions);
             if(document.querySelector(".bal tbody").children.length <= 2){
-                addRows();
+                addRow();
             };
         }else if(event.target.id == "jobInput"){
 
@@ -142,13 +160,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //check balance
 
-    function addRows(){
+    function addRow(){
         let table = document.querySelector(".bal tbody");
         let tableCh = table.children;
+        let tableChLen = tableCh.length;
         let row;
-        for(let i=0; i<tableCh.length; i++){
-            if(i == tableCh.length-1){
-                row = table.insertRow(i);
+        for(let i=0; i<tableChLen; i++){
+            if(i == tableChLen-1){
+                row = table.insertRow(i+1);
             }
         }
         for(let i=0; i<6; i++){
@@ -157,10 +176,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 cell.innerHTML = `<input type="text" size="1" spellcheck="false"></input>`;
             }else{
                 let cell = row.insertCell(i);
+                cell.id = "delete";
                 cell.innerHTML = `<img src="images/x-png.png">`;
             }
             
         };
+    }
+
+    function deleteRow(){
+
     }
 
     function payCheck(pay, deduct){
@@ -185,25 +209,5 @@ document.addEventListener("DOMContentLoaded", function() {
         let newBal = bal - withdrawl;
         element.innerText = `${newBal.toFixed(2)}`;
     }
-
-    const rCells = document.getElementById("rowCopy").children;
-
-    for(let elem of rCells){
-        elem.addEventListener("blur", function(event){
-            console.log(9)
-            let match = false
-            for(var i=0; i<rArr.length; i++){
-                if(elem == rArr[i]){
-                    match = true;
-                    break;
-                }
-            }
-            if(match){
-                console.log(9)
-                addRows();
-            }
-        })
-    }
-
     
 });

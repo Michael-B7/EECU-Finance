@@ -191,6 +191,10 @@ th{
     box-shadow: inset 0 0 0 0.5px black;
 }
 
+th:hover{
+    cursor: default;
+}
+
 .bal, .bal th, .bal td{
     border: 1px solid black;
     padding: 5px;
@@ -215,6 +219,8 @@ th{
 
 .bal input{
     font-size: 1.05em;
+    height: 100%;
+    width: 100%
 }
 
 #delete{
@@ -223,6 +229,18 @@ th{
 }
 
 #delete img{
-    /* width:16%; */
-    border: none
+    /* width:33%; */
+    border: none;
+}
+
+#delete:hover{
+    cursor: pointer
+}
+
+#code *:hover, #desc *:hover, #neg *:hover, #pos *:hover, #amount *:hover{
+    cursor: default;
+}
+
+#code:hover, #desc:hover, #neg:hover, #pos:hover, #amount:hover{
+    cursor: default;
 }
