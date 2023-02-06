@@ -21,8 +21,7 @@
                 <form autocomplete="off" action="" class="job" onsubmit="return false">
                     <div class="autocomplete">
                         <input id="jobInput" type="text" name="job" placeholder="Job" spellcheck="false">
-                        <ul class="autocomplete-list" id="job-list">
-                        </ul>
+                        <ul class="autocomplete-list" id="job-list"></ul>
                     </div>
                 </form>
             </section>
@@ -124,18 +123,19 @@
                 </div>
             </section>
         </div>
-            
 
+        
+            
         <section class="balance">
             <p></p>
             <div>
                 <table class="bal">
                     <form action="">
                         <div class="sheet">
-                            <tr>
+                            <tr id="header">
                                 <th>NUMBER OR CODE</th>
                                 <th>TRANSACTION DESCRIPTION</th>
-                                <th>PAYMENT, FEE, WITHDRAWL (-$)</th>
+                                <th>PAYMENT, FEE, WITHDRAWAL (-$)</th>
                                 <th>DEPOSIT CREDIT (+$)</th>
                                 <th>BALANCE ($)</th>
                                 <th>DELETE</th>

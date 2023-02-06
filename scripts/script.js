@@ -1,14 +1,15 @@
-let jobs = {"Accountant": 55650.00, "Advance Tractor/Trailer Driver": 53550.00, "Agricultural Engineer": 56700.00, "Architect": 53550.00, "Auto Tech/Mechanic": 49350.00, "Aviation Tech. Mechanic": 50400.00, "Biologist": 54600.00, "Bus Driver": 37800.00, "Business Development Officer": 54600.00, "Business Manager (Hotel, etc.)": 61950.00, "CNC Manufacturing": 80850.00, "Carpenter": 47250.00, "Chef": 52500.00, "Chemist": 56700.00, "Civil Engineering Technician": 68250.00, "Commercial Driver": 51450.00, "Computer Technician": 46200.00, "Conserv./Environ. Science": 72450.00, "Corectional Officer": 48300.00, "Cosmetologist": 36750.00, "Credit Union/Bank Manager": 61950.00, "Daycare Director": 37800.00, "Dentist": 115500.00, "Detective": 60900.00, "Diesel Tech/Mechanic": 55650.00, "Doctor/Physician": 147000.00, "Electrician": 54600.00, "Electronic Engineer": 75600.00, "EMT": 34650.00, "Energy Management PG&E": 106050.00, "Engineer": 72450.00, "Fashion Designer": 63000.00, "Fire Fighter": 49350.00, "Forest Ranger": 52500.00, "Graphic/Media Designer": 58800.00, "H/C HVAC": 63000.00, "Highway Patrol": 84000.00, "Home Inspector": 56700.00, "Industrial Mechanic": 46200.00, "Interior Designer": 49350.00, "Investment Analyst": 66150.00, "Lab Technician": 42000.00, "Landscaper Horticulture": 48300.00, "Lawyer": 86100.00, "Marketing/Sales Manager": 58800.00, "Media/Communications": 45150.00, "Medical Repair Tech.": 52500.00, "Military": 55650.00, "Nurse": 66150.00, "Nutritionist": 45150.00, "Oceanographer":69300.00, "Pastor": 50400.00, "PG&E/AT8&T Technician": 79750.00, "Pharmacist": 105000.00, "Photographer": 45150.00, "Physical Therapist": 72450.00, "Pilot (Commercial)": 78750.00, "Plumber": 52500.00, "Police Officer": 53550.00, "Principal": 93450.00, "Probation Officer": 44100.00, "Psychologist": 77700.00, "Retail Sales Associate": 34650.00, "Social Worker": 50400.00, "Solar Energy Tech.": 53550.00, "Teacher": 52500.00, "UPS/Fed Ex Driver": 68250.00, "Veterinarian": 82950.00, "Welder/Metal Specialist": 47250.00, "Wind Energy Technician": 56700.00}
+let jobs = {"Accountant": 55650.00, "Advance Tractor/Trailer Driver": 53550.00, "Agricultural Engineer": 56700.00, "Architect": 53550.00, "Auto Tech/Mechanic": 49350.00, "Aviation Tech. Mechanic": 50400.00, "Biologist": 54600.00, "Bus Driver": 37800.00, "Business Development Officer": 54600.00, "Business Manager (Hotel, etc.)": 61950.00, "CNC Manufacturing": 80850.00, "Carpenter": 47250.00, "Chef": 52500.00, "Chemist": 56700.00, "Civil Engineering Technician": 68250.00, "Commercial Driver": 51450.00, "Computer Technician": 46200.00, "Conserv./Environ. Science": 72450.00, "Correctional Officer": 48300.00, "Cosmetologist": 36750.00, "Credit Union/Bank Manager": 61950.00, "Daycare Director": 37800.00, "Dentist": 115500.00, "Detective": 60900.00, "Diesel Tech/Mechanic": 55650.00, "Doctor/Physician": 147000.00, "Electrician": 54600.00, "Electronic Engineer": 75600.00, "EMT": 34650.00, "Energy Management PG&E": 106050.00, "Engineer": 72450.00, "Fashion Designer": 63000.00, "Fire Fighter": 49350.00, "Forest Ranger": 52500.00, "Graphic/Media Designer": 58800.00, "H/C HVAC": 63000.00, "Highway Patrol": 84000.00, "Home Inspector": 56700.00, "Industrial Mechanic": 46200.00, "Interior Designer": 49350.00, "Investment Analyst": 66150.00, "Lab Technician": 42000.00, "Landscaper Horticulture": 48300.00, "Lawyer": 86100.00, "Marketing/Sales Manager": 58800.00, "Media/Communications": 45150.00, "Medical Repair Tech.": 52500.00, "Military": 55650.00, "Nurse": 66150.00, "Nutritionist": 45150.00, "Oceanographer":69300.00, "Pastor": 50400.00, "PG&E/AT&T Technician": 79750.00, "Pharmacist": 105000.00, "Photographer": 45150.00, "Physical Therapist": 72450.00, "Pilot (Commercial)": 78750.00, "Plumber": 52500.00, "Police Officer": 53550.00, "Principal": 93450.00, "Probation Officer": 44100.00, "Psychologist": 77700.00, "Retail Sales Associate": 34650.00, "Social Worker": 50400.00, "Solar Energy Tech.": 53550.00, "Teacher": 52500.00, "UPS/Fed Ex Driver": 68250.00, "Veterinarian": 82950.00, "Welder/Metal Specialist": 47250.00, "Wind Energy Technician": 56700.00}
 
 document.addEventListener("DOMContentLoaded", function(){
     const height = document.querySelector("article").offsetHeight;
-    document.querySelector(".balance div").style.height = `${height}px`
+    document.querySelector(".balance div").style.height = `${height}px`;
+    // document.querySelector(".balance").style.height = `${height}px`;
 })
 
 document.addEventListener("resize", function(){
     const height = document.querySelector("article").offsetHeight;
     document.querySelector(".balance div").style.height = `${height}px`;
-    document.querySelector(".balance").style.height = `${height}px`;
+    // document.querySelector(".balance").style.height = `${height}px`;
 })
 
 //autocomplete
@@ -93,25 +94,34 @@ function unloadData(){
         }
     });
 
-    let balSheetItems = document.querySelectorAll("#rowCopy input");
-    balSheetItems.forEach((item) => {
-        item.value = "";
-    })
+    let balSheetRows = document.querySelectorAll(".bal tr:not(#header)");
+    for(let i=0; i<balSheetRows.length; i++) {
+        if(i > 0){
+            table.deleteRow(i+1)
+        }else{
+            let cells = balSheetRows[i].children;
+            for(let j=0; j<cells.length-1; j++){
+                cells[j].children[0].value = ""
+            }
+        }
+    }
 
     document.querySelector(".house p:last-child").innerText = "$";
 };
 
 jobInputElement.addEventListener("input", function(){
     jobError.innerText = ""
-    unloadData();
+    if(jobInputElement.value == ""){
+        unloadData();
+    }
     const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
     loadData(filteredData, jobListElement);
 });
 
 jobInputElement.addEventListener("click", function(){
     jobError.innerText = "";
-    jobInputElement.value = '';
-    unloadData();
+    // jobInputElement.value = '';
+    // unloadData();
     const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
     loadData(filteredData, jobListElement);
 });
@@ -187,6 +197,7 @@ function addRow(){
                     if(j == 2 && i == 1){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
+                                balError.innerText = "";
                                 let prevBal = tableCh[i].children[4].children[0].children[0].value;
                                 let balElem = event.target.parentNode.parentNode.children[4].children[0];
                                 withdrawl(+prevBal, +event.target.value, balElem);
@@ -195,6 +206,7 @@ function addRow(){
                     }else if(j == 3 && i ==1){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
+                                balError.innerText = "";
                                 let prevBal = tableCh[i].children[4].children[0].children[0].value;
                                 let balElem = event.target.parentNode.parentNode.children[4].children[0];
                                 deposit(+prevBal, +event.target.value, balElem);
@@ -203,6 +215,7 @@ function addRow(){
                     }else if(j == 2 && i != 1){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
+                                balError.innerText = "";
                                 let prevBal = tableCh[i].children[4].children[0].value;
                                 let balElem = event.target.parentNode.parentNode.children[4].children[0];
                                 withdrawl(+prevBal, +event.target.value, balElem);
@@ -211,6 +224,7 @@ function addRow(){
                     }else if(j == 3 && i != 1){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
+                                balError.innerText = "";
                                 let prevBal = tableCh[i].children[4].children[0].value;
                                 let balElem = event.target.parentNode.parentNode.children[4].children[0];
                                 deposit(+prevBal, +event.target.value, balElem);
@@ -223,24 +237,21 @@ function addRow(){
                 }else{
                     let cell = row.insertCell(j);
                     cell.id = "delete";
-                    cell.addEventListener("click", delRow);
+                    cell.addEventListener("click", function(event){
+                        if(event.target.id == "delete"){
+                            let row = event.target.parentNode; 
+                            row.parentNode.removeChild(row);
+                        }else{
+                            let cell = event.target.parentNode;
+                            let row = cell.parentNode;
+                            row.parentNode.removeChild(row);
+                        }
+                    });
                     cell.innerHTML = `<img src="images/x-png.png">`;
                 }
                 
             };
         }
-    }
-    
-}
-
-function delRow(){
-    if(event.target.id == "delete"){
-        let row = event.target.parentNode; 
-        row.parentNode.removeChild(row);
-    }else{
-        let cell = event.target.parentNode;
-        let row = cell.parentNode;
-        row.parentNode.removeChild(row);
     }
     
 }
