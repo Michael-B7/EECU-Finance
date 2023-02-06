@@ -38,9 +38,27 @@ article{
     justify-content: space-between;
 }
 
-.jobs, .deductions, .balance{
+.jobs, .deductions, .balance > div{
     background-color: white;
+}
+
+.jobs, .deductions{
     box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+}
+
+.balance > p{
+    border: none;
+    position: absolute;
+    z-index: 100;
+    top: -40px;
+    left: 5px;
+    font-weight: bold;
+    color: red;
+    width: 100%;
+}
+
+.bal{
+    height: fit-content;
 }
 
 .half{
@@ -75,7 +93,10 @@ article{
 
 .balance{
     width: 58.5%;
-    border: 1px solid rgba(0,0,0,.1);
+    /* border: 1px solid rgba(0,0,0,.1); */
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+    position: relative;
+    overflow-y: auto;
 }
 
 .jobs{
@@ -182,16 +203,16 @@ article{
     /* overflow-y: scroll; */
 }
 
-.balance{
-    overflow-y: auto;
-    max-height: 54.25vh;
-    border: none;
-}
+/* .balance{
+    
+    border: none; */
+/* } */
 
 .balance > div{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-content: flex-start;
 }
 
 th{
