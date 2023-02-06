@@ -2,18 +2,20 @@ let jobs = {"Accountant": 55650.00, "Advance Tractor/Trailer Driver": 53550.00, 
 
 document.addEventListener("DOMContentLoaded", function(){
     const height = document.querySelector("article").offsetHeight;
-    document.querySelector(".balance").style.height = `${height}px`
+    document.querySelector(".balance div").style.height = `${height}px`
 })
 
 document.addEventListener("resize", function(){
     const height = document.querySelector("article").offsetHeight;
-    document.querySelector(".balance").style.height = `${height}px`
+    document.querySelector(".balance div").style.height = `${height}px`;
+    document.querySelector(".balance").style.height = `${height}px`;
 })
 
 //autocomplete
 const jobListElement = document.querySelector("#job-list");
 const jobInputElement = document.querySelector("#jobInput");
-const error = document.querySelector(".jd p");
+const jobError = document.querySelector(".jd p");
+const balError = document.querySelector(".balance p");
 let totNums = [];
 
 function loadData(data, element){
@@ -100,14 +102,14 @@ function unloadData(){
 };
 
 jobInputElement.addEventListener("input", function(){
-    error.innerText = ""
+    jobError.innerText = ""
     unloadData();
     const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
     loadData(filteredData, jobListElement);
 });
 
 jobInputElement.addEventListener("click", function(){
-    error.innerText = "";
+    jobError.innerText = "";
     jobInputElement.value = '';
     unloadData();
     const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
@@ -132,7 +134,7 @@ jobInputElement.addEventListener("keypress", function(event){
             };
         };
         if(!match){
-            error.innerText = "Please pick a job from the list.";
+            jobError.innerText = "Please pick a job from the list.";
         };
     };
 });
@@ -187,7 +189,6 @@ function addRow(){
                             if(event.key == "Enter"){
                                 let prevBal = tableCh[i].children[4].children[0].children[0].value;
                                 let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                                console.log(prevBal, balElem)
                                 withdrawl(+prevBal, +event.target.value, balElem);
                             }    
                         })
@@ -196,7 +197,6 @@ function addRow(){
                             if(event.key == "Enter"){
                                 let prevBal = tableCh[i].children[4].children[0].children[0].value;
                                 let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                                console.log(prevBal, balElem)
                                 deposit(+prevBal, +event.target.value, balElem);
                             }    
                         })
@@ -205,7 +205,6 @@ function addRow(){
                             if(event.key == "Enter"){
                                 let prevBal = tableCh[i].children[4].children[0].value;
                                 let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                                console.log(prevBal, balElem)
                                 withdrawl(+prevBal, +event.target.value, balElem);
                             }    
                         })
@@ -214,7 +213,6 @@ function addRow(){
                             if(event.key == "Enter"){
                                 let prevBal = tableCh[i].children[4].children[0].value;
                                 let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                                console.log(prevBal, balElem)
                                 deposit(+prevBal, +event.target.value, balElem);
                             }    
                         })
@@ -236,7 +234,6 @@ function addRow(){
 }
 
 function delRow(){
-    // console.log(9)
     if(event.target.id == "delete"){
         let row = event.target.parentNode; 
         row.parentNode.removeChild(row);
@@ -264,10 +261,18 @@ function payCheck(pay, deduct){
 
 function deposit(bal, deposit, element){
     let newBal = bal + deposit;
-    element.value = `${newBal.toFixed(2)}`;
+    if(!isNaN(newBal)){
+        element.value = `${newBal.toFixed(2)}`;
+    }else{
+        balError.innerText = "Please input a number"
+    } 
 }
 
 function withdrawl(bal, withdrawl, element){
     let newBal = bal - withdrawl;
-    element.value = `${newBal.toFixed(2)}`;
+    if(!isNaN(newBal)){
+        element.value = `${newBal.toFixed(2)}`;
+    }else{
+        balError.innerText = "Please input a number"
+    }
 }
