@@ -20,10 +20,15 @@ body{
     height: 40vh
 }
 
+.hero img{
+    max-height: 100%;
+}
+
 .hero h1{
     width: 100%;
     text-align: center;
-    color: rgb(0,108,168)
+    color: rgb(0,108,168);
+    font-size: 1.5em;
 }
 
 article{
