@@ -2,13 +2,13 @@ let jobs = {"Accountant": 55650.00, "Advance Tractor/Trailer Driver": 53550.00, 
 
 document.addEventListener("DOMContentLoaded", function(){
     const height = document.querySelector("article").offsetHeight;
-    document.querySelector(".balance div").style.height = `${height}px`;
+    document.querySelector(".table").style.height = `${height}px`;
     // document.querySelector(".balance").style.height = `${height}px`;
 })
 
 document.addEventListener("resize", function(){
     const height = document.querySelector("article").offsetHeight;
-    document.querySelector(".balance div").style.height = `${height}px`;
+    document.querySelector(".table").style.height = `${height}px`;
     // document.querySelector(".balance").style.height = `${height}px`;
 })
 
@@ -95,15 +95,13 @@ function unloadData(){
     });
 
     let balSheetRows = document.querySelectorAll(".bal tr:not(#header)");
-    for(let i=0; i<balSheetRows.length; i++) {
-        if(i > 0){
-            table.deleteRow(i+1)
-        }else{
-            let cells = balSheetRows[i].children;
-            for(let j=0; j<cells.length-1; j++){
-                cells[j].children[0].value = ""
-            }
-        }
+    for(let i=balSheetRows.length; i>1; i--) {
+        table.deleteRow(i)
+    }
+    let cells = balSheetRows[0].children;
+    // console.log(cells)
+    for(let j=0; j<cells.length-1; j++){
+        cells[j].children[0].children[0].value = ""
     }
 
     document.querySelector(".house p:last-child").innerText = "$";
@@ -174,7 +172,22 @@ const addButton = document.getElementsByClassName("add")[0];
 const table = document.getElementsByClassName("bal")[0];
 
 checkBook.addEventListener("mouseover", function(){
-    addButton.style = "display: block"
+    let tabRows = table.children[1].children
+    let lastRow = tabRows[tabRows.length-1]
+    let cells = lastRow.children
+    let end = false;
+    for(let i=0; i<lastRow.children.length-1; i++){
+        if(cells[i].querySelector("input").value == ""){
+            end = true;
+        }else{
+            end = false;
+            break;
+        }
+    }
+    
+    if(!end){
+        addButton.style.display = "block"
+    }
 });
 
 checkBook.addEventListener("mouseout", function(){
@@ -203,7 +216,13 @@ function addRow(){
                                 withdrawl(+prevBal, +event.target.value, balElem);
                             }    
                         })
-                    }else if(j == 3 && i ==1){
+                        cell.addEventListener("blur", function(event){
+                            balError.innerText = "";
+                            let prevBal = tableCh[i].children[4].children[0].children[0].value;
+                            let balElem = event.target.parentNode.parentNode.children[4].children[0];
+                            withdrawl(+prevBal, +event.target.value, balElem);  
+                        })
+                    }else if(j == 3 && i == 1){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
                                 balError.innerText = "";
@@ -275,7 +294,7 @@ function deposit(bal, deposit, element){
     if(!isNaN(newBal)){
         element.value = `${newBal.toFixed(2)}`;
     }else{
-        balError.innerText = "Please input a number"
+        balError.innerText = "Please input a number."
     } 
 }
 
@@ -284,6 +303,6 @@ function withdrawl(bal, withdrawl, element){
     if(!isNaN(newBal)){
         element.value = `${newBal.toFixed(2)}`;
     }else{
-        balError.innerText = "Please input a number"
+        balError.innerText = "Please input a number."
     }
 }

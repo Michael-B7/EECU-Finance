@@ -38,8 +38,12 @@ article{
     justify-content: space-between;
 }
 
-.jobs, .deductions, .balance > div{
+.jobs, .deductions, .table{
     background-color: white;
+}
+
+.table{
+    overflow-y: auto;
 }
 
 .jobs, .deductions{
@@ -54,7 +58,6 @@ article{
     left: 5px;
     font-weight: bold;
     color: red;
-    width: 100%;
 }
 
 .bal{
@@ -96,7 +99,8 @@ article{
     /* border: 1px solid rgba(0,0,0,.1); */
     box-shadow: 5px 5px 5px rgba(0,0,0,.2);
     position: relative;
-    overflow-y: auto;
+    /* overflow-y: auto; */
+    background-color: white;
 }
 
 .jobs{
@@ -296,4 +300,24 @@ th:hover{
     cursor: pointer;
 }
 
-/* @media screen and (max-width:) */
+@media screen and (max-width: 1500px){
+    .hero img{
+        max-height: 75%;
+    }
+}
+
+@media screen and (max-width: 1150px){
+    .jd, .balance{
+        width: 100%;
+    }
+
+    .jd{
+        margin: 0 0 20px 0
+    }
+}
+
+@media screen and (max-width: 600px){
+    .balance{
+        overflow: auto;
+    }
+}
