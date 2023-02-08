@@ -207,6 +207,7 @@ function addRow(){
             for(let j=0; j<6; j++){
                 if(j != 5){
                     let cell = row.insertCell(j);
+                    cell.innerHTML = `<input type="text" size="1" spellcheck="false"></input>`;
                     if(j == 2 && i == 1){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
@@ -216,7 +217,7 @@ function addRow(){
                                 withdrawl(+prevBal, +event.target.value, balElem);
                             }    
                         })
-                        cell.addEventListener("blur", function(event){
+                        cell.children[0].addEventListener("blur", function(event){
                             balError.innerText = "";
                             let prevBal = tableCh[i].children[4].children[0].children[0].value;
                             let balElem = event.target.parentNode.parentNode.children[4].children[0];
@@ -231,6 +232,12 @@ function addRow(){
                                 deposit(+prevBal, +event.target.value, balElem);
                             }    
                         })
+                        cell.children[0].addEventListener("blur", function(event){
+                            balError.innerText = "";
+                            let prevBal = tableCh[i].children[4].children[0].children[0].value;
+                            let balElem = event.target.parentNode.parentNode.children[4].children[0];
+                            deposit(+prevBal, +event.target.value, balElem);  
+                        })
                     }else if(j == 2 && i != 1){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
@@ -239,6 +246,12 @@ function addRow(){
                                 let balElem = event.target.parentNode.parentNode.children[4].children[0];
                                 withdrawl(+prevBal, +event.target.value, balElem);
                             }    
+                        })
+                        cell.children[0].addEventListener("blur", function(event){
+                            balError.innerText = "";
+                            let prevBal = tableCh[i].children[4].children[0].value;
+                            let balElem = event.target.parentNode.parentNode.children[4].children[0];
+                            withdrawl(+prevBal, +event.target.value, balElem);  
                         })
                     }else if(j == 3 && i != 1){
                         cell.addEventListener("keypress", function(event){
@@ -249,9 +262,15 @@ function addRow(){
                                 deposit(+prevBal, +event.target.value, balElem);
                             }    
                         })
+                        cell.children[0].addEventListener("blur", function(event){
+                            balError.innerText = "";
+                            let prevBal = tableCh[i].children[4].children[0].value;
+                            let balElem = event.target.parentNode.parentNode.children[4].children[0];
+                            deposit(+prevBal, +event.target.value, balElem);   
+                        })
                     }
 
-                    cell.innerHTML = `<input type="text" size="1" spellcheck="false"></input>`;
+                    
 
                 }else{
                     let cell = row.insertCell(j);
