@@ -94,15 +94,11 @@ function unloadData(){
         }
     });
 
-    let balSheetRows = document.querySelectorAll(".bal tr:not(#header)");
-    for(let i=balSheetRows.length; i>1; i--) {
-        table.deleteRow(i)
-    }
-    let cells = balSheetRows[0].children;
-    // console.log(cells)
-    for(let j=0; j<cells.length-1; j++){
-        cells[j].children[0].children[0].value = ""
-    }
+    // let cells = document.querySelector("#rowCopy").children;
+    // // console.log(cells)
+    // for(let j=0; j<cells.length-1; j++){
+    //     cells[j].children[0].children[0].value = ""
+    // }
 
     document.querySelector(".house p:last-child").innerText = "$";
 };
@@ -117,7 +113,7 @@ jobInputElement.addEventListener("input", function(){
 });
 
 jobInputElement.addEventListener("click", function(){
-    jobError.innerText = "";
+    // jobError.innerText = "";
     // jobInputElement.value = '';
     // unloadData();
     const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
@@ -135,6 +131,7 @@ jobInputElement.addEventListener("keypress", function(event){
                 jobListElement.innerHTML = '';
                 let deductions = deduct(job);
                 payCheck(jobs[job]/12, deductions);
+                update();
                 if(document.querySelector(".bal tbody").children.length <= 2){
                     addRow();
                 };
@@ -155,6 +152,7 @@ document.addEventListener("click", function(event){
         jobListElement.innerHTML = '';
         let deductions = deduct(job);
         payCheck(jobs[job]/12, deductions);
+        update();
         if(document.querySelector(".bal tbody").children.length <= 2){
             addRow();
         };
@@ -208,73 +206,29 @@ function addRow(){
                 if(j != 5){
                     let cell = row.insertCell(j);
                     cell.innerHTML = `<input type="text" size="1" spellcheck="false"></input>`;
-                    if(j == 2 && i == 1){
+                    if(j == 2){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
                                 balError.innerText = "";
-                                let prevBal = tableCh[i].children[4].children[0].children[0].value;
-                                let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                                withdrawl(+prevBal, +event.target.value, balElem)
-                            }    
-                        })
-                        cell.children[0].addEventListener("blur", function(event){
-                            balError.innerText = "";
-                            let prevBal = tableCh[i].children[4].children[0].children[0].value;
-                            let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                            withdrawl(+prevBal, +event.target.value, balElem);  
-                        })
-                        cell.addEventListener("input", function(){
-
-                        })
-                    }else if(j == 3 && i == 1){
-                        cell.addEventListener("keypress", function(event){
-                            if(event.key == "Enter"){
-                                balError.innerText = "";
-                                let prevBal = tableCh[i].children[4].children[0].children[0].value;
-                                let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                                deposit(+prevBal, +event.target.value, balElem);
-                            }    
-                        })
-                        cell.children[0].addEventListener("blur", function(event){
-                            balError.innerText = "";
-                            let prevBal = tableCh[i].children[4].children[0].children[0].value;
-                            let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                            deposit(+prevBal, +event.target.value, balElem);  
-                        })
-                    }else if(j == 2 && i != 1){
-                        cell.addEventListener("keypress", function(event){
-                            if(event.key == "Enter"){
-                                balError.innerText = "";
-                                // let prevBal = tableCh[i].children[4].children[0].value;
-                                // let balElem = event.target.parentNode.parentNode.children[4].children[0];
                                 update()
                             }    
                         })
                         cell.children[0].addEventListener("blur", function(event){
                             balError.innerText = "";
-                            // let prevBal = tableCh[i].children[4].children[0].value;
-                            // let balElem = event.target.parentNode.parentNode.children[4].children[0];
                             update()  
                         })
-                    }else if(j == 3 && i != 1){
+                    }else if(j == 3){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
                                 balError.innerText = "";
-                                // let prevBal = tableCh[i].children[4].children[0].value;
-                                // let balElem = event.target.parentNode.parentNode.children[4].children[0];
                                 update()
                             }    
                         })
                         cell.children[0].addEventListener("blur", function(event){
                             balError.innerText = "";
-                            // let prevBal = tableCh[i].children[4].children[0].value;
-                            // let balElem = event.target.parentNode.parentNode.children[4].children[0];
                             update()   
                         })
                     }
-
-                    
-
                 }else{
                     let cell = row.insertCell(j);
                     cell.id = "delete";
@@ -287,7 +241,7 @@ function addRow(){
                             let row = cell.parentNode;
                             row.parentNode.removeChild(row);
                         }
-                        update()
+                        update();
                     });
                     cell.innerHTML = `<img src="images/x-png.png">`;
                 }
@@ -339,15 +293,20 @@ function withdrawl(bal, withdrawl, element){
 
 function update(){
     let rows = table.children[1].children
+    let job = document.querySelector("#jobInput").value;
 
-    for (let index = 3; index < rows.length; index++) {
-        if(rows[index].children[2].children[0].value == ""){
-            // console.log(0)
+    for (let index = 1; index < rows.length; index++) {
+        if(index == 1){
+            payCheck(jobs[job]/12, deduct(job));
+        }else if(rows[index].children[2].children[0].value == ""){
+            console.log(0)
             deposit(+rows[index-1].children[4].children[0].value, +rows[index].children[3].children[0].value, rows[index].children[4].children[0])
         }else{
-            // console.log(rows[index-1].children[4].children[0])
+            console.log(9)
             withdrawl(rows[index-1].children[4].children[0].value, +rows[index].children[2].children[0].value, rows[index].children[4].children[0])
         };
-        
+        if(rows.length < 2){
+            break;
+        }
     }
 }

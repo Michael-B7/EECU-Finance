@@ -304,6 +304,10 @@ th:hover{
     .hero img{
         max-height: 75%;
     }
+
+    .bal td{
+        height: 5vh;
+    }
 }
 
 @media screen and (max-width: 1150px){
