@@ -320,4 +320,17 @@ th:hover{
     .balance{
         overflow: auto;
     }
+
+    article{
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    *{
+        font-size: .95em;
+    }
+
+    #jobInput{
+        font-size: .9em;
+    }
 }
