@@ -329,4 +329,8 @@ th:hover{
     *{
         font-size: .95em;
     }
+
+    #jobInput{
+        font-size: .9em;
+    }
 }
