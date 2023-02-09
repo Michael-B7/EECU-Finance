@@ -214,7 +214,7 @@ function addRow(){
                                 balError.innerText = "";
                                 let prevBal = tableCh[i].children[4].children[0].children[0].value;
                                 let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                                withdrawl(+prevBal, +event.target.value, balElem);
+                                withdrawl(+prevBal, +event.target.value, balElem)
                             }    
                         })
                         cell.children[0].addEventListener("blur", function(event){
@@ -222,6 +222,9 @@ function addRow(){
                             let prevBal = tableCh[i].children[4].children[0].children[0].value;
                             let balElem = event.target.parentNode.parentNode.children[4].children[0];
                             withdrawl(+prevBal, +event.target.value, balElem);  
+                        })
+                        cell.addEventListener("input", function(){
+
                         })
                     }else if(j == 3 && i == 1){
                         cell.addEventListener("keypress", function(event){
@@ -242,31 +245,31 @@ function addRow(){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
                                 balError.innerText = "";
-                                let prevBal = tableCh[i].children[4].children[0].value;
-                                let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                                withdrawl(+prevBal, +event.target.value, balElem);
+                                // let prevBal = tableCh[i].children[4].children[0].value;
+                                // let balElem = event.target.parentNode.parentNode.children[4].children[0];
+                                update()
                             }    
                         })
                         cell.children[0].addEventListener("blur", function(event){
                             balError.innerText = "";
-                            let prevBal = tableCh[i].children[4].children[0].value;
-                            let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                            withdrawl(+prevBal, +event.target.value, balElem);  
+                            // let prevBal = tableCh[i].children[4].children[0].value;
+                            // let balElem = event.target.parentNode.parentNode.children[4].children[0];
+                            update()  
                         })
                     }else if(j == 3 && i != 1){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
                                 balError.innerText = "";
-                                let prevBal = tableCh[i].children[4].children[0].value;
-                                let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                                deposit(+prevBal, +event.target.value, balElem);
+                                // let prevBal = tableCh[i].children[4].children[0].value;
+                                // let balElem = event.target.parentNode.parentNode.children[4].children[0];
+                                update()
                             }    
                         })
                         cell.children[0].addEventListener("blur", function(event){
                             balError.innerText = "";
-                            let prevBal = tableCh[i].children[4].children[0].value;
-                            let balElem = event.target.parentNode.parentNode.children[4].children[0];
-                            deposit(+prevBal, +event.target.value, balElem);   
+                            // let prevBal = tableCh[i].children[4].children[0].value;
+                            // let balElem = event.target.parentNode.parentNode.children[4].children[0];
+                            update()   
                         })
                     }
 
@@ -284,6 +287,7 @@ function addRow(){
                             let row = cell.parentNode;
                             row.parentNode.removeChild(row);
                         }
+                        update()
                     });
                     cell.innerHTML = `<img src="images/x-png.png">`;
                 }
@@ -310,18 +314,40 @@ function payCheck(pay, deduct){
 
 function deposit(bal, deposit, element){
     let newBal = bal + deposit;
+
     if(!isNaN(newBal)){
+        // console.log(1)
         element.value = `${newBal.toFixed(2)}`;
     }else{
+        // console.log(2)
         balError.innerText = "Please input a number."
-    } 
+    }
 }
 
 function withdrawl(bal, withdrawl, element){
     let newBal = bal - withdrawl;
+    // console.log(bal, withdrawl)
+    // console.log(newBal)
     if(!isNaN(newBal)){
+        // console.log(3)
         element.value = `${newBal.toFixed(2)}`;
     }else{
+        // console.log(4)
         balError.innerText = "Please input a number."
+    }    
+}
+
+function update(){
+    let rows = table.children[1].children
+
+    for (let index = 3; index < rows.length; index++) {
+        if(rows[index].children[2].children[0].value == ""){
+            // console.log(0)
+            deposit(+rows[index-1].children[4].children[0].value, +rows[index].children[3].children[0].value, rows[index].children[4].children[0])
+        }else{
+            // console.log(rows[index-1].children[4].children[0])
+            withdrawl(rows[index-1].children[4].children[0].value, +rows[index].children[2].children[0].value, rows[index].children[4].children[0])
+        };
+        
     }
 }
