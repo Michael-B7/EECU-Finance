@@ -270,7 +270,14 @@ function payCheck(pay, deduct){
 }
 
 function deposit(bal, deposit, element){
-    let newBal = bal + deposit;
+    let newBal;
+
+    if(Math.sign(deposit) == -1){
+        balError.innerText = "Please remove negative."
+        return;
+    }else{
+        newBal = bal - deposit;
+    }
 
     if(!isNaN(newBal)){
         element.value = `${newBal.toFixed(2)}`;
@@ -279,16 +286,8 @@ function deposit(bal, deposit, element){
     }
 }
 
-function withdrawl(bal, withdrawl, element){
-    let newBal;
-
-    if(Math.sign(withdrawl) == -1){
-        balError.innerText = "Please remove negative."
-        return;
-    }else{
-        newBal = bal - withdrawl;
-    }
-    
+function withdrawl(bal, withdrawl, element){    
+    newBal = bal - Math.abs(withdrawl);
 
     if(!isNaN(newBal)){
         element.value = `${newBal.toFixed(2)}`;
