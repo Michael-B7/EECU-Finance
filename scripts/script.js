@@ -3,13 +3,11 @@ let jobs = {"Accountant": 55650.00, "Advance Tractor/Trailer Driver": 53550.00, 
 document.addEventListener("DOMContentLoaded", function(){
     const height = document.querySelector("article").offsetHeight;
     document.querySelector(".table").style.height = `${height}px`;
-    // document.querySelector(".balance").style.height = `${height}px`;
 })
 
 document.addEventListener("resize", function(){
     const height = document.querySelector("article").offsetHeight;
     document.querySelector(".table").style.height = `${height}px`;
-    // document.querySelector(".balance").style.height = `${height}px`;
 })
 
 //autocomplete
@@ -94,12 +92,6 @@ function unloadData(){
         }
     });
 
-    // let cells = document.querySelector("#rowCopy").children;
-    // // console.log(cells)
-    // for(let j=0; j<cells.length-1; j++){
-    //     cells[j].children[0].children[0].value = ""
-    // }
-
     document.querySelector(".house p:last-child").innerText = "$";
 };
 
@@ -113,9 +105,6 @@ jobInputElement.addEventListener("input", function(){
 });
 
 jobInputElement.addEventListener("click", function(){
-    // jobError.innerText = "";
-    // jobInputElement.value = '';
-    // unloadData();
     const filteredData = filterData(Object.keys(jobs), jobInputElement.value);
     loadData(filteredData, jobListElement);
 });
@@ -217,6 +206,13 @@ function addRow(){
                             balError.innerText = "";
                             update()  
                         })
+                        cell.addEventListener("input", function(event){
+                            if(event.target.value != ""){
+                                row.children[3].innerHTML = `<input readonly type="text" size="1" spellcheck="false"></input>`
+                            }else{
+                                row.children[3].innerHTML = `<input type="text" size="1" spellcheck="false"></input>`
+                            }
+                        })
                     }else if(j == 3){
                         cell.addEventListener("keypress", function(event){
                             if(event.key == "Enter"){
@@ -227,6 +223,13 @@ function addRow(){
                         cell.children[0].addEventListener("blur", function(event){
                             balError.innerText = "";
                             update()   
+                        })
+                        cell.addEventListener("input", function(event){
+                            if(event.target.value != ""){
+                                row.children[2].innerHTML = `<input readonly type="text" size="1" spellcheck="false"></input>`
+                            }else{
+                                row.children[2].innerHTML = `<input type="text" size="1" spellcheck="false"></input>`
+                            }
                         })
                     }
                 }else{
@@ -270,23 +273,26 @@ function deposit(bal, deposit, element){
     let newBal = bal + deposit;
 
     if(!isNaN(newBal)){
-        // console.log(1)
         element.value = `${newBal.toFixed(2)}`;
     }else{
-        // console.log(2)
         balError.innerText = "Please input a number."
     }
 }
 
 function withdrawl(bal, withdrawl, element){
-    let newBal = bal - withdrawl;
-    // console.log(bal, withdrawl)
-    // console.log(newBal)
+    let newBal;
+
+    if(Math.sign(withdrawl) == -1){
+        balError.innerText = "Please remove negative."
+        return;
+    }else{
+        newBal = bal - withdrawl;
+    }
+    
+
     if(!isNaN(newBal)){
-        // console.log(3)
         element.value = `${newBal.toFixed(2)}`;
     }else{
-        // console.log(4)
         balError.innerText = "Please input a number."
     }    
 }
@@ -299,10 +305,8 @@ function update(){
         if(index == 1){
             payCheck(jobs[job]/12, deduct(job));
         }else if(rows[index].children[2].children[0].value == ""){
-            console.log(0)
             deposit(+rows[index-1].children[4].children[0].value, +rows[index].children[3].children[0].value, rows[index].children[4].children[0])
         }else{
-            console.log(9)
             withdrawl(rows[index-1].children[4].children[0].value, +rows[index].children[2].children[0].value, rows[index].children[4].children[0])
         };
         if(rows.length < 2){
